@@ -1,11 +1,16 @@
+import os
+import subprocess
 from argparse import ArgumentParser
 from tempfile import TemporaryDirectory
-import os
-from scoring import get_score
-import numpy as np
+
 import mlflow
+import numpy as np
+
+from scoring import get_score
+
 mlflow.set_tracking_uri('http://beleriand.velkerr.ru:8889')
-parser = ArgumentParser(description="get filename of training file, run with given args, resulting file must be submission.csv")
+parser = ArgumentParser(
+    description="get filename of training file, run with given args, resulting file must be submission.csv")
 parser.add_argument('runfile', type=str, help='file that generates submission')
 
 FOLD_INFO_PATH = 'fold_info'
@@ -13,9 +18,9 @@ TRAIN_FILE = "train.csv"
 TEST_FILE = "test.csv"
 TARGET_FILE = "test_answer.csv"
 
-def run(runfile, unknown, train, test):
 
-
+def run(runfile, unknown, train, test, cwd=None):
+    subprocess.run(f"python3 {runfile} {train} {test} " + " ".join(unknown), cwd=cwd)
 
 
 def loop_over_folds(runfile, unknown):
@@ -28,14 +33,14 @@ def loop_over_folds(runfile, unknown):
             os.symlink(os.path.join(fold_path, TRAIN_FILE), os.path.join(tmpdir, TRAIN_FILE))
             os.symlink(os.path.join(fold_path, TEST_FILE), os.path.join(tmpdir, TEST_FILE))
 
-            run(runfile, unknown, TRAIN_FILE, TEST_FILE)
+            run(runfile, unknown, TRAIN_FILE, TEST_FILE, cwd=tmpdir)
 
             score = get_score(os.path.join(fold_info, TARGET_FILE))
             results[fold_path] = score
     return results
 
-def main(runfile, unknown):
 
+def main(runfile, unknown):
     with mlflow.start_run():
         results = loop_over_folds(runfile, unknown)
         mlflow.log_metrics(results)
