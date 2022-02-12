@@ -1,6 +1,5 @@
 import json
 from argparse import ArgumentParser
-from pathlib import Path
 
 import numpy as np
 import pandas as pd
@@ -38,7 +37,6 @@ def prepare_dataset(dataset_path):
 
     data = pd.DataFrame(columns=["structures"], index=struct.keys())
     data = data.assign(structures=struct.values(), targets=targets['band_gap'].values)
-    print(data, targets)
     return train_test_split(data, test_size=0.25, random_state=666)
 
 
@@ -60,7 +58,6 @@ def prepare_model(cutoff, lr):
 
 
 def main(config, train_path, test_path):
-
     train, test = prepare_dataset(train_path)
     model = prepare_model(
         float(config["model"]["cutoff"]),
