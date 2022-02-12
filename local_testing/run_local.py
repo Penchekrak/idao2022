@@ -13,7 +13,7 @@ parser = ArgumentParser(
     description="get filename of training file, run with given args, resulting file must be submission.csv")
 parser.add_argument('runfile', type=str, help='file that generates submission')
 
-STRUCTURE_DATA_PATH = "data/dichalcogenides_public"
+STRUCTURE_DATA_PATH = "data/dichalcogenides_public/structures"
 FOLD_INFO_PATH = 'fold_info'
 TRAIN_FILE = "train.csv"
 TEST_FILE = "test.csv"
