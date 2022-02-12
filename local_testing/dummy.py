@@ -6,10 +6,6 @@ parser.add_argument('train', type=str, help='train csv')
 parser.add_argument('test', type=str, help='test csv')
 
 args = parser.parse_args()
-print(args)
-import os
-for i in os.walk(os.getcwd()):
-    print(i)
 sub = pd.read_csv(args.test, index_col='id')
 sub['predictions'] = 0
 sub.to_csv('submission.csv', index='id')
