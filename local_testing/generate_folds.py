@@ -17,4 +17,6 @@ for i, (train_indices, test_indices) in enumerate(folds):
         train_files.iloc[train_indices].set_index('_id').to_csv(train_fold_info)
     with open(os.path.join(FOLD_INFO_PATH, f"fold_{i}", "test.csv"), 'w') as test_fold_info:
         train_files.iloc[test_indices]['_id'].to_csv(test_fold_info, index=False)
+    with open(os.path.join(FOLD_INFO_PATH, f"fold_{i}", "test_answer.csv"), 'w') as test_fold_info:
+        train_files.iloc[test_indices].set_index('_id').to_csv(test_fold_info)
 
