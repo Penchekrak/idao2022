@@ -72,9 +72,7 @@ def main(config, train_path, test_path):
         batch_size=int(config["model"]["batch_size"]),
     )
 
-    model = prepare_model(
-        float(config["model"]["cutoff"]), float(config["model"]["lr"])
-    )
+    model.save_weights(config['checkpoint_path'])
     model.load_weights(config['checkpoint_path'])
 
     test_df = pd.read_csv(test_path)
