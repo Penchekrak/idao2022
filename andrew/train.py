@@ -5,13 +5,15 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-import wandb
 import yaml
 from megnet.data.crystal import CrystalGraph
 from megnet.models import MEGNetModel
 from pymatgen.core import Structure
 from sklearn.model_selection import train_test_split
+from tensorflow.keras.optimizers.schedules import PiecewiseConstantDecay
 from wandb.keras import WandbCallback
+
+import wandb
 
 
 def energy_within_threshold(prediction, target):
@@ -43,7 +45,8 @@ def prepare_model(model_config) -> MEGNetModel:
         metrics=energy_within_threshold,
         loss=model_config['losses'],
         npass=2,
-        lr=model_config['lr'],
+        lr=PiecewiseConstantDecay(boundaries=[model_config['epochs'] // 10],
+                                  values=[model_config['lr'], model_config['lr'] * 0.1]),
     )
     if model_config['preload_embeddings'] is not None:
         model_form = MEGNetModel.from_file(model_config['preload_embeddings'])
