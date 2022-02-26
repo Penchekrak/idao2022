@@ -141,3 +141,31 @@ def orange_closer(sites):
             sites_new.append(new_elt)
             sites_old.append(site)
     return sites_old if W_up else sites_new
+
+def dist_to_diag(point):
+    lvl11_x = -11.16610
+    lvl11_y = 21.18219
+    lvl12_x = 22.332
+    lvl12_y = 1.8419
+    
+    lvl21_x = 23.9273
+    lvl21_y = 0.92096
+    lvl22_x = -9.5709
+    lvl22_y = 20.26122
+    
+    if abs(point[2] - 3.7198) < 1e-3:
+        k =(lvl11_y - lvl12_y) / (lvl11_x - lvl12_x)
+        b = lvl11_y - lvl11_x * k
+        A = k
+        B = -1
+        C = b
+        d = abs(A * point[0] + B * point[1] + C) / np.sqrt(A ** 2 + B ** 2)
+        return d
+    else:
+        k =(lvl21_y - lvl22_y) / (lvl21_x - lvl22_x)
+        b = lvl21_y - lvl21_x * k
+        A = k
+        B = -1
+        C = b
+        d = abs(A * point[0] + B * point[1] + C) / np.sqrt(A ** 2 + B ** 2)
+        return d
