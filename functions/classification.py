@@ -56,7 +56,7 @@ def convert_group_to_target_class4(group):
 def classificate_class5(target):
     if target >= 0.39 and target <= 0.43:
         return 1
-    if target >= 0.33 and target <= 0.37:
+    if target >= 0.335 and target <= 0.375:
         return 2
     if target >= 0.28 and target <= 0.31:
         return 3
@@ -64,8 +64,8 @@ def classificate_class5(target):
 
 def convert_group_to_target_class5(group):
     if group == 1:
-        return 0.4
+        return 0.409 #0.4
     elif group == 2:
-        return 0.35
+        return 0.355 #0.35
     elif group == 3:
         return 0.295
