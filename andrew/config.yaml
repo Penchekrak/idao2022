@@ -1,0 +1,14 @@
+model:
+  gaussian_width: 0.8
+  nfeat_bond: 1000
+  cutoff: 5.0
+  epochs: 800
+  batch_size: 128
+  lr: 2.0e-4
+  losses:
+    - 'MAE'
+  preload_embeddings: # None
+data:
+  path: '../data/dichalcogenides_public'
+  train_val_ratio: 0.2
+  random_state: 123456
