@@ -1,9 +1,18 @@
 def classificate_class2(target):
-    if target >= 0.39 and target < 0.43:
+    if 0.39 <= target < 0.43:
         return 1
-    if target >= 0.34 and target < 0.38:
+    if 0.34 <= target < 0.38:
         return 2
-    if target >= 0.27 and target <= 0.31:
+    if 0.27 <= target <= 0.31:
+        return 3
+    return 0
+
+def classificate_class2_wide(target):
+    if 0.37 <= target < 0.434:
+        return 1
+    if 0.33 <= target < 0.37:
+        return 2
+    if 0.267 <= target <= 0.321:
         return 3
     return 0
 
@@ -16,13 +25,24 @@ def convert_group_to_target_class2(group):
         return 0.29
 
 def classificate_class3(target):
-    if target >= 1.08 and target <= 1.12:
+    if 1.08 <= target <= 1.12:
         return 1
-    if target >= 1. and target <= 1.04:
+    if 1. <= target <= 1.04:
         return 2
-    if target >= 0.93 and target <= 0.97:
+    if 0.93 <= target <= 0.97:
         return 3
-    if target >= 0.635 and target <= 0.675:
+    if 0.635 <= target <= 0.675:
+        return 4
+    return 0
+
+def classificate_class3_wide(target):
+    if 1.08 <= target <= 1.12:
+        return 1
+    if 1. <= target <= 1.04:
+        return 2
+    if 0.93 <= target <= 0.97:
+        return 3
+    if 0.635 <= target <= 0.675:
         return 4
     return 0
 
@@ -37,11 +57,11 @@ def convert_group_to_target_class3(group):
         return 0.655
 
 def classificate_class4(target): # maybe add class
-    if target >= 0.4 and target <= 0.44:
+    if 0.4 <= target <= 0.44:
         return 1
-    if target >= 0.345 and target <= 0.365:
+    if 0.345 <= target <= 0.365:
         return 2
-    if target >= 0.25 and target <= 0.29:
+    if 0.25 <= target <= 0.29:
         return 3
     return 0
 
@@ -54,11 +74,11 @@ def convert_group_to_target_class4(group):
         return 0.27
 
 def classificate_class5(target):
-    if target >= 0.39 and target <= 0.43:
+    if 0.39 <= target <= 0.43:
         return 1
-    if target >= 0.335 and target <= 0.375:
+    if 0.335 <= target <= 0.375:
         return 2
-    if target >= 0.28 and target <= 0.31:
+    if 0.28 <= target <= 0.31:
         return 3
     return 0
 
