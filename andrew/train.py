@@ -10,7 +10,7 @@ from megnet.data.crystal import CrystalGraph
 from megnet.models import MEGNetModel
 from pymatgen.core import Structure
 from sklearn.model_selection import train_test_split
-from tensorflow.keras.optimizers.schedules import PiecewiseConstantDecay
+from tensorflow.keras.callbacks import LearningRateScheduler
 from wandb.keras import WandbCallback
 
 import wandb
@@ -33,6 +33,13 @@ def create_parser() -> ArgumentParser:
     return parser
 
 
+def exponential_scheduler(epoch, lr):
+    if epoch < 300:
+        return lr
+    else:
+        return lr * 0.9999
+
+
 def prepare_model(model_config) -> MEGNetModel:
     nfeat_bond = model_config['nfeat_bond']
     r_cutoff = model_config['cutoff']
@@ -45,8 +52,8 @@ def prepare_model(model_config) -> MEGNetModel:
         metrics=energy_within_threshold,
         loss=model_config['losses'],
         npass=2,
-        lr=PiecewiseConstantDecay(boundaries=[model_config['epochs'] // 10],
-                                  values=[model_config['lr'], model_config['lr'] * 0.1]),
+        lr=model_config['lr'],
+        optimizer_kwargs={'clipnorm': model_config['clipnorm']},
     )
     if model_config['preload_embeddings'] is not None:
         model_form = MEGNetModel.from_file(model_config['preload_embeddings'])
@@ -87,7 +94,10 @@ def train(config):
         train_set.targets,
         validation_structures=test_set.structures,
         validation_targets=test_set.targets,
-        callbacks=[WandbCallback(monitor='energy_within_threshold')],
+        callbacks=[
+            WandbCallback(monitor='energy_within_threshold', mode='max'),
+            LearningRateScheduler(schedule=exponential_scheduler),
+        ],
         epochs=int(config['model']['epochs']),
         batch_size=int(config["model"]["batch_size"])
     )
@@ -96,8 +106,7 @@ def train(config):
 def main(args):
     with open(args.config, 'r') as config_file:
         config = yaml.safe_load(config_file)
-    wandb.init(project="idao", entity="penchekrak")
-    wandb.config = config
+    wandb.init(project="idao", entity="penchekrak", config=config)
     train(config)
 
 

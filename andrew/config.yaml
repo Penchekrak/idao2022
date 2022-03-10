@@ -7,6 +7,7 @@ model:
   lr: 2.0e-4
   losses:
     - 'MAE'
+    - 'MSE'
   preload_embeddings: # None
 data:
   path: '../data/dichalcogenides_public'
