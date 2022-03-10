@@ -12,5 +12,5 @@ model:
   clipnorm: 0.8
 data:
   path: '../data/dichalcogenides_public'
-  train_val_ratio: 0.1x
+  train_val_ratio: 0.1
   random_state: 123456
