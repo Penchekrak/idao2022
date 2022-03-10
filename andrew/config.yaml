@@ -9,7 +9,8 @@ model:
     - 'MAE'
     - 'MSE'
   preload_embeddings: # None
+  clipnorm: 0.8
 data:
   path: '../data/dichalcogenides_public'
-  train_val_ratio: 0.2
+  train_val_ratio: 0.1x
   random_state: 123456
