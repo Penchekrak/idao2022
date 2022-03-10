@@ -2,9 +2,9 @@ model:
   gaussian_width: 0.8
   nfeat_bond: 1000
   cutoff: 5.0
-  epochs: 800
-  batch_size: 128
-  lr: 2.0e-4
+  epochs: 1000
+  batch_size: 32
+  lr: 2.0e-3
   losses:
     - 'MAE'
     - 'MSE'

@@ -87,6 +87,7 @@ def prepare_dataset(data_config):
 
 
 def train(config):
+#    tf.debugging.set_log_device_placement(True)
     model = prepare_model(config['model'])
     train_set, test_set = prepare_dataset(config["data"])
     model.train(
