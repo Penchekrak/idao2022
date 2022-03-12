@@ -5,9 +5,9 @@ model:
   epochs: 1000
   batch_size: 64
   lr: 2.0e-3
-  losses:
-    - 'MAE'
-    - 'MSE'
+  losses: 'MSE'
+#    - 'MAE'
+#    - 'MSE'
   preload_embeddings: # None
   clipnorm: 0.8
 data:
