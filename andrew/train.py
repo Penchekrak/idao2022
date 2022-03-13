@@ -36,8 +36,10 @@ def create_parser() -> ArgumentParser:
 def exponential_scheduler(epoch, lr):
     if epoch < 300:
         return lr
-    else:
-        return lr * 0.9999
+    elif epoch < 600:
+        return lr * 0.1
+    elif epoch < 800:
+        return lr * 0.1
 
 
 def prepare_model(model_config) -> MEGNetModel:
@@ -50,7 +52,7 @@ def prepare_model(model_config) -> MEGNetModel:
         centers=gaussian_centers,
         width=gaussian_width,
         metrics=energy_within_threshold,
-        loss=model_config['losses'],
+        loss=eval(model_config['losses']),
         npass=2,
         lr=model_config['lr'],
         optimizer_kwargs={'clipnorm': model_config['clipnorm']},
