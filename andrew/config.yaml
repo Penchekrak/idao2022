@@ -8,7 +8,7 @@ model:
   losses: 'lambda y_true, y_pred: keras.losses.mean_squared_error(y_true, y_pred) + keras.losses.mean_absolute_error(y_true, y_pred)'
 #    - 'MAE'
 #    - 'MSE'
-  preload_embeddings: './mvl_models/mf_2020/pbe_gllb_hse_exp_disorder/0/best_model.hdf5'# None
+  preload_embeddings: './mvl_models/mf_2020/pbe_gllb_hse_exp_disorder/0/best_model.hdf5'
   clipnorm: 0.8
 data:
   path: '../data/dichalcogenides_public'
