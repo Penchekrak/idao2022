@@ -2,9 +2,6 @@ all: build
 
 build:
 	@echo 'starting....'
-	bash train.sh
-	bash run.sh
 run:
+	unzip -q data.zip
 	bash run.sh
-train:
-	bash train.sh
